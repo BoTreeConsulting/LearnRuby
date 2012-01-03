@@ -1,0 +1,53 @@
+Chapter - 3
+
+Check following RB files
+
+- array_join.rb    pelindrome.rb    simple_cli.rb
+- boolean_golf.rb  shuffle_play.rb  use_cli.rb
+
+
+- We can change the name for the existing methods fo object, as alias. In the following examples, we give alias to the to_i method.
+
+	irb(main):007:0> class String
+	irb(main):008:1> alias :make_me_into_an_integer :to_i
+	irb(main):009:1> end
+	=> nil
+	irb(main):010:0> '5'.make_me_into_an_integer
+	=> 5
+	
+- We get a duplicate of the calling object simply by using the dup method,
+	self.dup
+	
+- Hash, same like HashMap in Java = you declare a Hash with braces.
+    The items to the left of the => are the keys of the Hash, while the items to the 
+    right of the => are the values of the Hash. The values here are Arrays
+    
+  OPTIONS = {
+    :version => ['-v', '--version'],
+    :help    => ['-h', '--help'],
+    :reset   => ['-r', '--reset'],
+  }
+  
+- The way to refer to a constant within a class is with the syntax Class::CONSTANT.
+
+- '=<<Marker' will take multiline text upto the marker symbol. Have a look at follwing example.
+
+	USAGE =<<END_OF_USAGE
+	This program understands the following options:
+		-v, --version : displays the current version of the program
+		-h, --help    : displays a message with usage instructions
+		-r, --reset   : resets the program
+	With no command-line options, the program performs its default behavior.
+	END_OF_USAGE
+	
+- Using another predicate method called any?. It takes a block and returns true if the contents of that block evaluate to true for any of the elements of the calling object, which is usually an Array.
+
+	$ irb
+	irb(main):001:0> a = [0, 1, 2]
+	=> [0, 1, 2]
+	irb(main):002:0> a.any? { |i| i > 1 }
+	=> true
+	irb(main):003:0> a.any? { |i| i > 2 }
+	=> false
+	
+- 
