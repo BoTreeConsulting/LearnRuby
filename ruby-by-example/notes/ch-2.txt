@@ -1,0 +1,5 @@
+Please check following examples in ruby project, folder 'ch-2'. The programs have comments to explain diff. steps inside.
+
+1. check_pay_day.rb
+2. random_sig.rb
+

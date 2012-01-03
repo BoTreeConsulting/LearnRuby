@@ -1,0 +1,10 @@
+1. If you have not installed ruby, please do that using 'sudo apt-get install ruby1.9.1' for ruby,'sudo apt-get install irb1.9.1' for irb (the ruby shell). Check if its running properly and you are able to run ruby commands in IRB.
+
+2. Download the eclipse plugin from following URL & install it in eclipse.
+	http://sourceforge.net/projects/rubyeclipse/
+	
+3. Create new workspace for ruby, create new 'Ruby' Project. This will ask to open 'Ruby' perspective.
+
+4. Configure the ruby runtime, open Window->preferences->ruby->installed interpreters. This will show you jruby installed, but we need to add standard ruby vm. Click on 'add' and write '/usr' in "ruby home dir" field,  the first textbox. Select the new VM and click ok to set preferences.
+
+5. As we do for java, we need to configure Run/Debug for Ruby as well to run any .rb runnable file. Any executable .rb file also can be run from here.

@@ -1,0 +1,88 @@
+Ruby By Example
+========================
+
+Chapter -1
+---------------
+
+String & Numbers --
+- String is 'Hello' OR "Hello". Ruby shell will treat anything between "/' as a string.
+- Everything is an object, String is also a Object. "Hello, world!".class will print =>String
+- Integer is also object, but Class for Integer will be Fixnum/Bignum.Ruby translate between these different types of numbers automatically.For example, 100.class returns Fixnum, and (100 ** 100).class returns Bignum.
+- in 100 + 100, + is a method which adds another number to the first one.
+- in "One,"+" Two", + will do concatenation and not addition.
+- "Hello, world!" + 100 will give error, TypeError is an example of what Ruby call an exception.
+
+	TypeError: failed to convert Fixnum into String
+        from (irb):6:in '+'
+        from (irb):6
+		
+- To solve the problem, "Hello, world!" + 100.to_s. Where 'to_s' casts the number 100 to String & concatenates.
+- To convert "100" to integer, "100".to_i => 100.
+- It would be nice if we could see a list of all the methods we could call on a given object. 
+	To check for 100, write: 100.methods. This will print all the methods applicable for number.
+
+Arrays --
+- Arrays are just another class in Ruby, like String or Integer, and (unlike some other languages) there is no requirement for all members of a given Array to be instances of the same class.
+- Wrapping up integer/String in brackets will make it array: 
+	[100].class => Array
+	
+- Adding two arrays will merge them both: 
+	[100] + ["Hello, world!"] => [100, "Hello, world!"]
+	
+- Booleans are used for flow control.
+
+Flow Control --
+- most commonly used flow control operations is if. It evaluates the expression that follows it as either true or false. 
+	100 if true => 100
+	100 if false => nil
+- Ruby has a specific value that stands for the absence of a value (or an otherwise meaningless value), which is nil.
+- The nil value is distinct from all other values. However, when we force Ruby to evaluate nil as a Boolean, it evaluates to false
+	"It's true!" if nil => nil
+	
+- Everything other than nil or false evaluates to true when forced into a Boolean.
+- Boolean casting is implicit when you use if.
+- not can be used to reverse the boolean: (not true) => false
+- To return diff. non-nill values for true false:
+
+	irb(main):016:0> if true
+	irb(main):017:1> 100
+	irb(main):018:1> else
+	irb(main):019:1* 50
+	irb(main):020:1> end
+	=> 100
+
+	irb(main):021:0> if false
+	irb(main):022:1> 100
+	irb(main):023:1> else
+	irb(main):024:1* 50
+	irb(main):025:1> end
+	=> 50
+	
+Methods --
+
+- We define methods in Ruby with the keyword def:
+
+	irb(main):026:0> def first_if_true(first, second, to_be_tested)
+	irb(main):027:1> if to_be_tested
+	irb(main):028:2> first
+	irb(main):029:2> else
+	irb(main):030:2* second
+	irb(main):031:2> end
+	irb(main):032:1> end
+	=> nil
+	
+- This method will return diff. results based on inputs as following:
+
+	irb(main):033:0> first_if_true(1, 2, true)
+	=> 1
+	irb(main):034:0> first_if_true(1, 2, false)
+	=> 2
+	irb(main):035:0> first_if_true(1, 2, nil)
+	=> 2
+	irb(main):036:0> first_if_true(nil, "Hello, world!", true)
+	=> nil
+	
+Variables -- same as java, we can assign method results or expressions to variables.
+	irb(main):035:0> myVal = first_if_true(1, 2, nil)
+	myVal => 2
+

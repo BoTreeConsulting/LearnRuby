@@ -1,0 +1,12 @@
+1. First of all, goto the following link. This will provide very basics of the language and helps getting further.
+
+	http://www.ruby-lang.org/en/documentation/quickstart/
+
+	
+2. Goto http://www.ruby-lang.org/en/documentation/, have a look at all links inside for more detailed overview.
+
+
+3. http://www.techotopia.com/index.php/Ruby_Essentials
+Current: On link, http://www.techotopia.com/index.php/Understanding_Ruby_Variables
+
+ibm tutorial : http://www.ibm.com/developerworks/opensource/library/os-rubyeclipse/
