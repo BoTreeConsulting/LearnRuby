@@ -2,4 +2,27 @@ Please check following examples in ruby project, folder 'ch-2'. The programs hav
 
 1. check_pay_day.rb
 2. random_sig.rb
+3. 99song.rb
 
+
+Remaining: from page 51, sound file player
+---------------------------
+NOTES
+---------------------------
+- Class must start with uppercase letter. Filename also should be separated by _. Like, classname is 'MyClass' then filename should be 'my_class.rb' (Eclipse plugin takes care of this formal rule.)
+- Every class should have a method called initialize, which is what that class uses when it creates itself. From the outside, we call the method new, but the class itself uses the name initialize.
+- The @ sign is how Ruby indicates that something is what’s called an instance variable.
+- You can bring external content into an irb session with the -r command-line flag, which stands for require.
+	$ irb -r 99bottles.rb
+	irb(main):001:0> other_wall = Wall.new(10)
+	=> #<Wall:0xb2708 @bottles=10>
+- Ruby has inherited a tradition from its ancestor Lisp of naming methods with a question mark when they return either true or false. Such methods that only return a Boolean are called predicates.
+- Destructive methods change the state of their object, which means that they perform some action on their object that persists after the method has been called. They end with ! (also called bang)
+- When we use double quotation marks and wrap an expression within #{}, the expression is evaluated before it is inserted into the String. When we use single quotation marks or omit the #{} wrapper, all the text simply appears literally, even if that text happens to be a valid expression, such as the name of a variable.
+- If you want to have double quotation marks within a String that uses interpolation, you can use %Q. Note that the delimiter does not have to be a bracket and could be conceivably any character. Common choices are [, {, and !.
+	like this: %Q[I am an interpolating String. Call me "#{ 'Ishmael' }".]
+
+- Ruby methods return the last expression evaluated.
+- The only class that can access methods that we’ve defined after the appearance of the word private is the class itself.
+- The initialize method is automatically private, and the (public) new method of any object automatically calls the (private) initialize method of that same object. That’s why we create an initializemethod when we write completely new classes.
+- 
