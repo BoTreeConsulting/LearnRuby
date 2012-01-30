@@ -1,0 +1,70 @@
+Text manipulation
+
+- provides function 'gsub' in two modes, destructive & non-destructive. gsub! is  "global substitution", for the given regex for 0 ore more times, with \n string.
+
+	contents = "abcde"
+	contents.gsub!(/ab?/, "P") # replace text itself to "Pcde"
+	contents.gsub(/ab?/, "P") # returns new text by replacing, to "Pcde". Keeps the original as it is.
+	
+- One line of code to edit any file, convert dos2unix. The -p is for lines of file, i is for inline editing & -e is for execution.
+	
+	ruby -pi -e 'gsub(/\r\n?/, "\n")' some_file
+
+- A new Array method called each_with_index. This method is very similar to the each method that we’ve already seen, except that it also gives us the appropriate index number. 
+
+	lines.each_with_index { |line,i| 
+     output += "#{sprintf(format, i+1)}: #{line}"
+    }
+    
+- We then use a new method called sprintf that formats data into Strings. It takes two arguments: the first is the format to use, and the second is the data to be formatted.
+
+- This time, we call a new method called inject that you can see takes an argument (the empty String, in our example) and a block; we define two variables within the block in the process.
+
+	File.open(filename, 'r').readlines.inject('') do |output,line| 
+		output += softwrap_line(line)
+	end.gsub(/\t+/, ' ').gsub(/ +/, ' ')
+	
+- The name output is apt, as the inject method assumes that the first block-level variable should start with the value of the argument to inject that preceded the block—the empty String, in this case. The inject method is remarkable in that modifications of the output variable 
+persist from each iteration to the next.
+
+- The inject method is very useful for any sort of appending or successive operations. Let’s look at how it operates on some numbers in irb.
+
+	irb(main):001:0> nums = [1, 2, 3, 4]
+	=> [1, 2, 3, 4]
+	irb(main):002:0> nums.inject(0) { |sum,number| sum += number }
+	=> 10
+	irb(main):003:0> nums.inject(0) { |product,number| product *= number }
+	=> 0
+	irb(main):004:0> nums.inject(1) { |product,number| product *= number }
+	=> 24
+
+- That means, Inject gives initial value for the first argument of the block, here it is for sum & product in above examples.
+
+- Array method called grep, which takes an argument and returns all elements that match that element.
+- Using map method on arrays. As you can see, map is very convenient for any sort of transformation of a
+list of items that can be expressed with a simple description,
+
+	irb(main):001:0> digit_range = 0..9
+	=> 0..9
+	irb(main):002:0> digit_range.class
+	=> Range
+	irb(main):003:0> digits = digit_range.to_a
+	=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+	irb(main):004:0> digits.map { |num| num + 1 }
+	=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+	irb(main):005:0> digits.map { |num| num + 10 }
+	=> [10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+	irb(main):006:0> digits.map { |num| num * 2 }
+	=> [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
+	irb(main):007:0> digits.map { |num| num ** 2 }
+	=> [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+	irb(main):008:0> digits
+	=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+	irb(main):009:0> digits.map! { |num| num ** 2 }
+	=> [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+	irb(main):010:0> digits
+	=> [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+	
+- 
+
+

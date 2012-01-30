@@ -1,0 +1,19 @@
+- Strings know how to compare themselves to other Strings because String has a <=> method, and one of String’s ancestors is the Comparable module.
+
+- Comparable uses the <=> method to implement the other comparison operators, such as ==, <=, >=, and 
+so on. If you create a new class and want it to be sortable, give it a method called <=>, 
+figure out how to implement it in a way that makes sense, and then mix in Compa-
+rable. You’ll get lots of sorting value for a minimal amount of effort, and you’ll make 
+your objects more useful.
+
+
+def strip_tags(elements)
+  return '' unless (elements.size > 0)
+  return elements.to_a.map do |tag|
+  # where CHOMP_TAG is a Proc. this maps this Proc to every element of the array got by .texts method (Example from XML library, texts is a method of that lib)
+  # then joins the elements with '' & call the same method for the inner child elements of that tag. Recursion...
+  tag.texts.map(&CHOMP_TAG).join('') + strip_tags(tag.elements)	  
+ end.join(' ')
+end
+
+- 

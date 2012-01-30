@@ -1,0 +1,101 @@
+- Ruby handles power (exponentiation) as follows,
+
+	irb(main):001:0> 2 ** 2
+	=> 4
+	irb(main):002:0> 2 ** 3
+	=> 8
+	
+- You can raise a number (called the base) to a given exponent easily with the ** operator
+
+Inheritance
+
+- All classes inherit from Object. So, if we want to add some method fo rnumber formatting, we would add it in Integer as we seen till now. But, what if we want to make it for float as well? We can add it in Object class.
+
+- You can check the object class hierarchy with following command.
+
+	irb(main):001:0> Integer.ancestors
+	=> [Integer, Precision, Numeric, Comparable, Object, Kernel]
+	irb(main):002:0> Float.ancestors
+	=> [Float, Precision, Numeric, Comparable, Object, Kernel]
+	irb(main):003:0>
+	
+- So, we can see that Float & Integer both have Precision as their next parent. Lets check what Precision is,
+	irb(main):003:0> Integer.class
+	=> Class
+	irb(main):004:0> Float.class
+	=> Class
+	irb(main):005:0> Precision.class
+	=> Module
+- We see that Integer is a class, something that can be instantiated. So is Float. 5 is an Integer, and 3.14 is a Float. But Precision is something called a Module, not a Class at all.
+
+- Module is like Abstract class in Java. Check example of commify.rb
+
+- Class variables are declared with two @ signs. like, @@myData. Remember, that instance variables are declared with only one @ sign.
+- Class variables are shared among every instance of a class but are able to change value.
+
+	irb(main):001:0> class String
+	irb(main):002:1> @@class_var = "I'm a Class Variable."
+	irb(main):003:1> def cv
+	irb(main):004:2> @@class_var
+	irb(main):005:2> end
+	irb(main):006:1> end
+	=> nil
+	irb(main):007:0> ''.cv
+	=> "I'm a Class Variable."
+	irb(main):008:0> 'Some other String'.cv
+	=> "I'm a Class Variable."
+	irb(main):009:0> 'Yet another String.'.cv
+	=> "I'm a Class Variable."
+	
+- Hash.merge will merge two hashes and returns new hash with combined values of both. Also note that it overrides keys & values while merging.
+
+	irb(main):001:0> hash1 = { 'key1' => 'value1', 'key2' => 'value2' }
+	=> {"key1"=>"value1", "key2"=>"value2"}
+	irb(main):002:0> hash2 = { 'key3' => 'value3', 'key4' => 'value4' }
+	=> {"key3"=>"value3", "key4"=>"value4"}
+	irb(main):003:0> hash1
+	=> {"key1"=>"value1", "key2"=>"value2"}
+	irb(main):004:0> hash2
+	=> {"key3"=>"value3", "key4"=>"value4"}
+	irb(main):005:0> hash1.merge(hash2)
+	=> {"key1"=>"value1", "key2"=>"value2", "key3"=>"value3", "key4"=>"value4"}
+	irb(main):006:0> hash3 = { 'key1' => nil }
+	=> {"key1"=>nil}
+	irb(main):007:0> hash1.merge(hash2).merge(hash3)
+	=> {"key1"=>nil, "key2"=>"value2", "key3"=>"value3", "key4"=>"value4"}
+	
+- Array provides a method, detect, which means 'find first'. Means, it find the first occurance of the value matching with the condition of the block.
+
+	irb(main):001:0> digits = (0..9).to_a
+	=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+	irb(main):002:0> digits.detect { |d| d % 3 }
+	=> 0
+	irb(main):003:0> digits.reverse.detect { |d| d % 3 }
+	=> 9
+	irb(main):004:0> digits.detect { |d| d > 4 }
+	=> 5
+	irb(main):005:0> digits.reverse.detect { |d| d % 2 == 1 }
+	=> 9
+	
+- open-uri allows Kernel.open to read data using a URI, not just from a local file.
+
+	require 'open-uri'
+	
+- YAML[http://www.yaml.org] stands for "YAML Ain't Markup Language" and is a simple human-readable data markup format. see currency_converter2.rb for detailed example. See how YAML file looks. It represents a single Hash whose keys are currency codes and whose values are floating-point numbers.
+
+	---
+	EUR: 0.789639
+	INR: 45.609987
+	CNY: 7.890017
+	MXN: 11.062366
+	CAD: 1.126398
+	
+- To open file using YAML, 
+	YAML.load(File.open(rates_filename))
+	
+- To write to YAML,
+	File.open(rates_filename, 'w') { |rf| YAML.dump(rates, rf) }
+	
+- If you pass a data structure that you understand into YAML.dump, you can read the resulting .yaml file to see what the proper representation is. You can then change the data structure in some specific way, rewrite using YAML.dump, and compare the results. So, we can say its serializing the data structure to YAML file and able to load the same when we read the same file.
+
+- 

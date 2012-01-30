@@ -1,0 +1,17 @@
+- Factorial & fibonacci programs.. with slight changes for better performance.
+- check test*.rb prog for benchmarking example, it shows all fact & fib files benchmark.
+
+- Also, ruby has profiler which breaks down the parts of your code and gives speed reports at a finer level of detail.The library can be automatically applied to an execution of code simply by including profile via the -r flag.
+
+	ruby -r profile -r 99bottles.rb -e 'wall = Wall.new(99); wall.sing_one_verse! until wall.empty?'. 
+	
+- Test cases...
+
+require 'temperature_converter' # the prog to be tested
+require 'test/unit' # the unit testing framework
+
+class Tester < Test::Unit::TestCase # define a new class called Tester,this class is a child of Test::Unit::TestCase, meaning that it inherits all of the methods and 
+characteristics of Test::Unit::TestCase. 
+
+assert_equal( result, @converter.convert( test_args ) )
+# the expected result & method returned value passed to assertion method.

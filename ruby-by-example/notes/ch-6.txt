@@ -1,0 +1,145 @@
+Functionalism with blocks & Procs
+================
+
+- Everything in Ruby is object, functions also.In Ruby, we do this with the command lambda, which takes a block. 
+
+	irb(main):001:0> double_me = lambda { |x| x * 2 }
+	=> #<Proc:0xb7d1f890@(irb):1>
+	irb(main):002:0> double_me.call(5)
+	=> 10
+
+- You can see by the return value of line one that the result of calling 
+lambda is an instance of class Proc. Proc is short for procedure, and while most 
+objects are defined by what they are, Procs can be thought of primarily as 
+defined by what they do. Procs have a method called call, which tells that Proc 
+instance to do whatever it does. In our irb example, we have a Proc instance 
+called double_me that takes an argument and returns that argument, times two.
+
+- Array provide a method, called 'find_all', which finds all matching values as per the given block. Check 'matching_members.rb'.
+
+Blocks, Procs, and the Ampersand
+
+- The ampersand (&) is Ruby’s way of expressing blocks and Procs in terms 
+of each other. It’s very useful for arguments to methods, as you might 
+imagine. Blocks, you may remember, are simply bits of code between 
+delimiters such as braces ({ "I'm a block!" }) or the do and end keywords 
+(do "I'm also a block!" end). Procs are objects made from blocks via the 
+lambda method. Either of them can be passed into methods, and the amper-
+sand is the way to use one as the other.
+
+	irb(main):001:0> class Array
+	irb(main):002:1> def matches_block( &some_block )
+	irb(main):003:2> find_all( &some_block )
+	irb(main):004:2> end
+	irb(main):005:1> def matches_proc( some_proc )
+	irb(main):006:2> find_all( &some_proc )
+	irb(main):007:2> end
+	irb(main):008:1> end
+	=> nil
+	
+	irb(main):009:0> digits = (0..9).to_a
+	=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+	irb(main):010:0> digits.matches_block { |x| x > 5 }
+	=> [6, 7, 8, 9]
+	irb(main):011:0> digits.matches_proc( lambda { |x| x > 5 } )
+	=> [6, 7, 8, 9]
+
+- Intersectin arrays,
+
+	irb(main):001:0> digits = (0..9).to_a
+	=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+	irb(main):002:0> evens = digits.find_all { |x| (x % 2).zero? }
+	=> [0, 2, 4, 6, 8]
+	irb(main):003:0> digits & evens
+	=> [0, 2, 4, 6, 8]
+	irb(main):004:0> half_digits = digits.find_all { |x| x < 5 }
+	=> [0, 1, 2, 3, 4]
+	irb(main):005:0> evens & half_digits
+	=> [0, 2, 4]
+	
+Proc.call(args) vs. Proc[args]
+
+- See the first example in this file, it calls a proc with .call method as below,
+
+	double_me.call(5)
+	
+- We can also call the same proc using following syntax also,
+
+	double_me[5]
+
+- Inspect - A new method called inspect on each set of results to retain 
+the brackets and commas that we normally associate with members of Arrays. 
+The inspect method returns a String representation of whatever object it’s Functionalism with Blocks and Procs 111
+called on. It is slightly different from the to_s method we’ve already seen. 
+
+	irb(main):001:0> digits = (0..9).to_a
+	=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+	irb(main):002:0> digits.to_s
+	=> "0123456789"
+	irb(main):003:0> digits.inspect
+	=> "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]"
+	
+- Nested lambda, Define proc inside another proc,
+
+	irb(main):001:0> digits = (0..9).to_a
+	=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+	irb(main):002:0> make_exp_proc = lambda { |exp| lambda { |x| x ** exp } }
+	=> #<Proc:0xb7c97adc@(irb):2>
+	irb(main):003:0> square_proc = make_exp_proc.call(2)
+	=> #<Proc:0xb7c97b18@(irb):2>
+	irb(main):004:0> square_proc.call(5)
+	=> 25
+	irb(main):005:0> squares = digits.map { |x| square_proc[x] }
+	=> [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+
+Alternatives to lambda for Creating Procs
+
+- Up until now, we’ve always created Procs with the lambda method, 
+but we know that Procs are instances of the class Proc. Traditionally, you can 
+create an instance by calling the new method on a class. 
+
+	irb(main):001:0> is_even_proc1 = lambda { |x| (x % 2).zero? }
+	=> #<Proc:0xb7cb687c@(irb):1>
+	irb(main):002:0> is_even_proc2 = Proc.new { |x| (x % 2).zero? }
+	=> #<Proc:0xb7cacb4c@(irb):2>
+	irb(main):003:0> is_even_proc1.call(7)
+	=> false
+	irb(main):004:0> is_even_proc2.call(7)
+	=> false
+	irb(main):005:0> is_even_proc1.call(8)
+	=> true
+	irb(main):006:0> is_even_proc2.call(8)
+	=> true
+	
+-  Proc.new do |*args|
+     args = %w/what what/ unless args[0]
+   end
+- In the above example, * means args is optional, this availables to Proc.new only.
+
+Blocks, Arguments, and yield
+
+- See following example: Using an ampersand is the way to explicitly refer to the block used to call a 
+method. Since we have the group of arguments, whatever they may be, and 
+we have the block, we could call it via block.call(*args). That approach would 
+work, but we have yet another alternative. Ruby has a method called yield 
+that means Call whichever block you received with whichever arguments are passed to 
+yield. When you get comfortable with this script, try replacing the yield line 
+in yield_block with block.call(*args). It will not change the script’s behavior 
+at all. 
+
+	irb(main):001:0> def yield_block(*args, &block)
+	irb(main):002:1> yield(*args)
+	irb(main):003:1> end
+	=> nil
+	irb(main):004:0> yield_block(0) { |x| x + 1 }
+	=> 1
+	irb(main):005:0> yield_block("I am a String") { |x| x.class }
+	=> String
+	irb(main):006:0> yield_block("How many words?") { |x| x.split(' ').nitems }
+	=> 3
+	irb(main):007:0> yield_block(0, 1) { |x,y| x == y }
+	=> false
+	irb(main):008:0> yield_block(0, 1) { |x,y| x < y }
+	=> true
+	
+- 
